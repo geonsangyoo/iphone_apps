@@ -1,12 +1,20 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CustomHeaderButton from '../components/HeaderButton';
 import PlaceItem from '../components/PlaceItem';
+import * as placesActions from '../store/places-actions';
 
 const PlacesListScreen = props => {
+    const places = useSelector(state => state.places.places);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(placesActions.loadplaces());
+    }, [dispatch])
+    
     useLayoutEffect(() => {
         props.navigation.setOptions({
             title: 'All Places',
@@ -25,14 +33,14 @@ const PlacesListScreen = props => {
             }
         });
     });
-    const places = useSelector(state => state.places.places);
+    
     return (
         <FlatList
             data={places}
             keyExtractor={item => item.id}
             renderItem={itemData => (
                 <PlaceItem
-                    image={null}
+                    image={itemData.item.imageUri}
                     title={itemData.item.title}
                     address={null}
                     onSelect={() => {
@@ -46,5 +54,7 @@ const PlacesListScreen = props => {
         />
     );
 };
+
 const styles = StyleSheet.create({});
+
 export default PlacesListScreen;

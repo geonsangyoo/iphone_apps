@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import * as placesActions from '../store/places-actions';
 import ImgPicker from '../components/ImgPicker';
+
 const NewPlaceScreen = props => {
     useLayoutEffect(() => {
         props.navigation.setOptions({
