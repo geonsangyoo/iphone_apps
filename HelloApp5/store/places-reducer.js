@@ -8,11 +8,15 @@ const initialState = {
 export default function placesReducer(state = initialState, action) {
     switch (action.type) {
         case SET_PLACES:
-            if (action.places.length > 0) {
+            if (action.places.rows.length > 0) {
+                let places = []
+                let rows = action.places.rows;
+                for (let i = 0; i < rows.length; i++) {
+                  let item = rows.item(i);
+                  places.push(new Place(item.id.toString(), item.title, item.imageUri))
+                }
                 return {
-                    places: action.places.map(
-                        pl => new Place(pl.id.toString(), pl.title, pl.imageUri)
-                    )
+                    places: places
                 }
             } else {
                 return state;

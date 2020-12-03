@@ -39,9 +39,6 @@ export const loadplaces = () => {
         try {
             console.log("Fetch Start!")
             const dbResult = await fetchPlaces();
-            
-            console.log('Result Fetch : ' + JSON.stringify(dbResult.rows.item));
-            
             dispatch({
                 type: SET_PLACES,
                 places: dbResult
